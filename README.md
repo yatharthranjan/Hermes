@@ -1,4 +1,4 @@
-# Hermes
+# Hermes Team Project
 
 #Develop a distributed chat system, with two separate clients
 Users can search for other people on a server, and initiate a chat
