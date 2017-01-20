@@ -16,15 +16,19 @@ The two clients you implement must be of different types
 will result in a deduction of 25 marks from the final team grade.
 
 #Server
-• Needs to speak a network protocol to clients.
-• Some choices: binary protocol? text protocol? Stateless /
+Needs to speak a network protocol to clients.
+
+Some choices: binary protocol? text protocol? Stateless /
 stateful? Text only? Pictures and other media? etc.
-• Needs to be able to deal with multiple simultaneous clients.
-• Some choices: a single server? multiple servers? master server
+
+Needs to be able to deal with multiple simultaneous clients.
+
+Some choices: a single server? multiple servers? master server
 with failover slaves? etc.
 
 #Clients
-• Need to speak a network protocol to users.
-• Some choices: store history locally? and/or remotely (allows
+Need to speak a network protocol to users.
+
+Some choices: store history locally? and/or remotely (allows
 users to move clients)? edit / delete previous messages? group
 chats? etc.
