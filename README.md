@@ -1,15 +1,17 @@
 # Hermes
 
 #Develop a distributed chat system, with two separate clients
-#Users can search for other people on a server, and initiate a chat
+Users can search for other people on a server, and initiate a chat
 with them. Doing so opens up a secure connection between the
 two users that bypasses the server.
-#There are three components: a server which can tell users how
+
+There are three components: a server which can tell users how
 to contact other people; client A which users can use; and client
 B which users can use. Clients can be implemented e.g. as:
 desktop applications; web sites; Android/iOS apps; terminal
 programs; etc.
-#The two clients you implement must be of different types
+
+The two clients you implement must be of different types
 (e.g. you may not implement two web clients). Failure to do so
 will result in a deduction of 25 marks from the final team grade.
 
