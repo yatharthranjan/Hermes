@@ -1,0 +1,81 @@
+@charset "utf-8";
+/* CSS Document */
+#welcome_page
+	{
+	margin:auto;
+	width:50%;
+	broder:1px solid grey;
+	color:#1E1E1E;
+	background-color:#F9F9F9;
+	text-align:center;
+	}
+ul#chatLog
+{
+list-style-type:none;
+width:85%;
+height:280px;
+overflow:scroll;
+
+	
+}
+div#chatbox
+{
+border:1px solid grey;
+width:300px;
+height:400px;
+position:relative;
+margin:auto;
+	background-color:#191919;
+	color:#FFF;
+	font-family:arial;
+
+}
+
+input#msg,input#img
+{
+	position:absolute;
+	
+	height:40px;
+	
+}
+input#msg
+{
+	bottom:0px;
+	width:99%;
+}
+input#img
+{
+bottom:0px;
+right:0;
+	width:15%;	
+}
+li.send
+{
+	background-color:#2C2C2C;
+	margin:10px;
+	border:1px solid grey;
+	
+}
+
+::-webkit-scrollbar
+{
+  width: 0px;  /* for vertical scrollbars */
+  height: 0px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb
+{
+	width:10px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+#submit
+{
+	display:none;
+	
+}
