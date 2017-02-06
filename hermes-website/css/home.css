@@ -1,0 +1,251 @@
+@charset "utf-8";
+/* CSS Document */
+#div1{
+	background-color:#F4F7FA;
+	position:absolute;
+	width:100%;
+	
+		
+}
+#profile_picture,#buddy_profile_picture
+{
+	width:60px;
+	height:50px;
+	border-radius:30px;
+	background-color:#FFFFFF;
+	margin-left:30px;
+	background-image:url(../images/Three-Colour-People-Icon-PNG.png);
+	background-size:100% 100%;
+	
+	
+}
+#buddy_profile_picture
+{
+	background-image:url(../images/15241775_1138296379617132_1793783046835652863_n.jpg);
+}
+#buddy_name
+{
+	position: absolute;
+	top:20px;
+	left:150px;
+}
+#submenu_li
+{
+	background-image:url(../images/1486181656_menu.png);
+	background-size:100% 100%;
+	background-repeat:no-repeat;
+	width:40px;
+	height:40px;
+	
+
+}
+
+ul#submenu
+{
+	padding: 10px;
+	position: absolute;
+	top:30px;
+	display: none;
+	color:#F4F7FA; 
+	
+}
+
+ul#menu >li:hover >ul#submenu
+{
+	display: block;
+	
+	
+}
+ul#submenu li
+{
+	padding: 10px;
+	border-bottom: 1px solid #2C3E50;
+	text-align: center;
+	margin: 0;
+	border-radius: 10px;
+	width: 150px;
+		background-color: #28B463;
+
+	
+	
+}
+
+#menu
+{position: absolute;
+	
+	margin: 0;
+	
+}
+	
+
+#div3
+{
+	position:absolute;
+	top:5px;
+	right:60px;
+	width: 200px;
+	height: 200px;
+	z-index: 199;
+	
+	
+}
+
+#div2
+{
+position:absolute;
+	top:300px;
+	width: 100%;
+	z-index: 99;
+	
+}
+#div2 #seach_box
+{
+	width:80%;
+	font-size: 18px;
+	height: 20px;
+	height: 40px;
+	border-radius: 20px;
+	border:0;
+	margin-left: 20px;
+	background-image:url(../images/1486198611_icon-111-search.png);
+	background-repeat: no-repeat;
+	background-position: right;
+	background-size: auto 100%;
+}
+#main_div
+{
+
+	position: absolute;
+	top:360px;
+	height: 700px;
+	
+}
+
+#contacts
+{
+
+	position: absolute;
+	padding: 0px;
+	left:20px;
+	margin: 0;
+	
+
+}
+#contacts span
+{
+	margin-left: 20px;
+}
+#contacts li
+{
+	color: #F4F7FA;
+	padding: 15px;
+	width: 200px;
+	margin: 5px;
+	border-radius: 20px;
+	
+}
+#contacts li:nth-child(2n)
+{
+	background-color: #28B463;
+}
+#contacts li:nth-child(2n+1)
+{
+	background-color:#2C3E50;
+}
+
+#chat
+{
+	position: absolute;
+	right:20px;
+	background-color: white;
+	width: 70%;
+	top:45px;
+	padding: 0;
+	border-radius: 30px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: 500px;
+	resize: none;
+	bottom: 20px;
+	margin-bottom: 20px;
+	
+}
+#chat li
+{
+	position:relative;
+	margin:10px;
+
+}
+#chat li p
+{
+	padding: 15px;
+	max-width: 60%;
+	width: auto;
+	margin:5px;
+	color:white;
+	border-radius: 40px;
+	position: relative;
+	display: flex;
+	flex-flow: nowrap;
+	align-items: flex-start;
+	font-family: tahoma," sans-serif";
+	
+}
+
+
+.user
+{
+	
+	background-color: #EE4F4F;
+	left: 300px;
+	
+	
+	
+}
+.buddy
+{
+	background-color: #0AB9A7;
+	
+	position: relative;
+	left: 20px;
+
+}
+
+#buddy_info
+{
+	position: absolute;
+	width:70%;
+	right:20px;
+	color:white;
+	background-color: #2C3E50;
+	border-radius: 30px;
+	
+	
+}
+#message_div
+{
+	position: absolute;
+	bottom:80px;
+	right:20px;
+	width: 70%;
+}
+#message_div #message_box
+{
+	font-size: 18px;
+	
+	height: 40px;
+	border-radius: 30px;
+	border:0;
+	width: 100%;
+	resize: none;
+	padding: 5px;
+	background-color:#F4F7FA;
+	border: 1px solid #CFD8E0;
+	
+}
+#message_div #message_box:focus
+{
+	background-color:white;
+	
+}
+
