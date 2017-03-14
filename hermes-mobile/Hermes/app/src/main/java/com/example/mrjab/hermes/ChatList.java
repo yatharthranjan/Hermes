@@ -49,6 +49,12 @@ public class ChatList {
 
     }
 
+    public void renewChats()
+    {
+        asyncChats = new GetChats();
+    }
+
+
     class GetChats extends AsyncTask<String, Void, String> {
 
         public AsyncResponse delegate = null;
@@ -62,13 +68,12 @@ public class ChatList {
             final HttpClient httpclient = new DefaultHttpClient();
             final HttpPost httppost = new HttpPost("http://hermes.webutu.com/ChatSelect.php");
 
-            final HttpGet httpget = new HttpGet("http://hermes.webutu.com/ChatSelect.php?userID="+String.valueOf(userID[0]));
+            final HttpGet httpget = new HttpGet("http://hermes.webutu.com/SP/ChatSelectUserAll.php?userIDV="+String.valueOf(userID[0]));
             String result;
 
 
             HttpResponse httpresponse = null;
 
-            Looper.prepare();
             ArrayList<NameValuePair> postParameters;
 
             postParameters = new ArrayList<NameValuePair>();
@@ -110,10 +115,10 @@ public class ChatList {
         }
         @Override
         protected void onPostExecute(String result) {
-
-
             super.onPostExecute(result);
 
+            //chats.clear();
+            chats = new ArrayList<>();
 
             JSONObject finaljson = null;
 

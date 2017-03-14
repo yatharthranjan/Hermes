@@ -21,15 +21,15 @@ public class CustomAdapterSearchUser extends BaseAdapter {
     Context context;
     int [] imageId;
     ArrayList<String> names;
-    ArrayList<String> email;
+    ArrayList<String> userID;
     private static LayoutInflater inflater=null;
-    public CustomAdapterSearchUser(SearchForUser sfs, ArrayList<String> username, int[] profImages, ArrayList<String> name, ArrayList<String> emails) {
+    public CustomAdapterSearchUser(SearchForUser sfs, ArrayList<String> username, int[] profImages, ArrayList<String> name, ArrayList<String> userIDs) {
         // TODO Auto-generated constructor stub
         usrnames=username;
         context=sfs;
         imageId=profImages;
         names=name;
-        email=emails;
+        userID=userIDs;
         inflater = ( LayoutInflater )context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -72,8 +72,8 @@ public class CustomAdapterSearchUser extends BaseAdapter {
 
 
         holder.tv1.setText(usrnames.get(position));
-        //holder.tv2.setText(times.get(position));
-        holder.tv3.setText(names.get(position)+" , "+email.get(position));
+        holder.tv2.setText("User ID : "+userID.get(position));
+        holder.tv3.setText(names.get(position));
         //holder.tv2.setText(times[position]);
         //holder.tv3.setText(messages[position]);
         //holder.img.setImageResource(imageId[position]);

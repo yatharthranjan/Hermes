@@ -26,7 +26,6 @@
                 android:text="Sign Up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/authentication_label"
                 android:textSize="30sp"
                 android:fontFamily="sans-serif"
                 android:paddingLeft="10dp"
@@ -37,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/editText5"
+                android:id="@+id/full_name"
                 android:hint="Full Name"
                 android:background="?android:attr/colorControlHighlight"
                 android:textSize="24sp"
@@ -50,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/username_textField"
+                android:id="@+id/username"
                 android:hint="Username"
                 android:background="?android:attr/colorControlHighlight"
                 android:textSize="24sp"
@@ -63,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/editText3"
+                android:id="@+id/email"
                 android:hint="Email"
                 android:background="?android:attr/colorControlHighlight"
                 android:textSize="24sp"
@@ -76,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/editText4"
+                android:id="@+id/confirm_email"
                 android:hint="Confirm Email"
                 android:background="?android:attr/colorControlHighlight"
                 android:textSize="24sp"
@@ -89,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:ems="10"
-                android:id="@+id/password_textField"
+                android:id="@+id/password"
                 android:hint="Password"
                 android:backgroundTint="?android:attr/colorControlHighlight"
                 android:background="@android:color/darker_gray"
@@ -103,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:ems="10"
-                android:id="@+id/editText6"
+                android:id="@+id/confirm_password"
                 android:hint="Confirm Password"
                 android:backgroundTint="?android:attr/colorControlHighlight"
                 android:background="@android:color/darker_gray"
@@ -116,156 +115,16 @@
                 android:text="Register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/login_button"
+                android:id="@+id/btn_login"
                 android:textSize="18sp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp" />
 
+
         </LinearLayout>
     </RelativeLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:weightSum="1">
-
-        <TextView
-            android:text="Authentication"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/authentication_label"
-            android:textSize="30sp"
-            android:fontFamily="sans-serif"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/username_textField"
-            android:hint="Username"
-            android:background="?android:attr/colorControlHighlight"
-            android:textSize="24sp"
-            android:layout_weight="0.06"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:id="@+id/password_textField"
-            android:hint="Password"
-            android:backgroundTint="?android:attr/colorControlHighlight"
-            android:background="@android:color/darker_gray"
-            android:textSize="24sp"
-            android:layout_weight="0.06"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
-
-        <CheckBox
-            android:text="Remember Me"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/rememberMe_checkBox"
-            android:textSize="18sp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_marginLeft="10dp" />
-
-        <Button
-            android:text="Login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/login_button"
-            android:textSize="18sp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
-
-        <TextView
-            android:text="New User? Click Here to Register!"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView"
-            android:layout_weight="0.05"
-            android:textSize="18sp"
-            android:autoText="false"
-            android:autoLink="all"
-            android:paddingTop="30dp"
-            android:paddingLeft="10dp" />
-    </LinearLayout>
-
-    <TextView
-        android:text="Authentication"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:textSize="30sp"
-        android:fontFamily="sans-serif"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:hint="Username"
-        android:background="?android:attr/colorControlHighlight"
-        android:textSize="24sp"
-        android:layout_weight="0.06"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/editText2"
-        android:hint="Password"
-        android:backgroundTint="?android:attr/colorControlHighlight"
-        android:background="@android:color/darker_gray"
-        android:textSize="24sp"
-        android:layout_weight="0.06"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
-
-    <CheckBox
-        android:text="Remember Me"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkBox"
-        android:textSize="18sp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:layout_marginLeft="10dp" />
-
-    <Button
-        android:text="Login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:textSize="18sp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
-
-    <TextView
-        android:text="New User? Click Here to Register!"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView3"
-        android:layout_weight="0.05"
-        android:textSize="18sp"
-        android:autoText="false"
-        android:autoLink="all"
-        android:paddingTop="30dp"
-        android:paddingLeft="10dp" />
+        android:id="@+id/testing"/>
 </LinearLayout>

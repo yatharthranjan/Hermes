@@ -39,6 +39,8 @@ public class CustomAdapter extends BaseAdapter {
         return usrnames.size();
     }
 
+
+
     @Override
     public Object getItem(int position) {
         // TODO Auto-generated method stub
@@ -58,6 +60,15 @@ public class CustomAdapter extends BaseAdapter {
         TextView tv3;
         ImageView img;
     }
+
+
+    public void clearData() {
+        // clear the data
+       usrnames.clear();
+        times.clear();
+        messages.clear();
+
+    }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
@@ -71,9 +82,11 @@ public class CustomAdapter extends BaseAdapter {
         holder.img=(ImageView) rowView.findViewById(R.id.imageView1);
 
 
-        holder.tv1.setText(usrnames.get(position));
-        holder.tv2.setText(times.get(position));
-        holder.tv3.setText(messages.get(position));
+        if(usrnames.size()>0 && times.size()>0 && messages.size()>0) {
+            holder.tv1.setText(usrnames.get(position));
+            holder.tv2.setText(times.get(position));
+            holder.tv3.setText(messages.get(position));
+        }
         //holder.tv2.setText(times[position]);
         //holder.tv3.setText(messages[position]);
         //holder.img.setImageResource(imageId[position]);
