@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mrjab.hermes">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <provider
+        android:name=".provider.ChatContentProvider"
+        android:authorities="com.example.mrjab.hermes.chatitems"
+        android:exported="true"
+        android:grantUriPermissions="true"
+        android:label="ChatContentProvider"
+        android:readPermission="com.example.mrjab.hermes.chatitems.READ"
+        android:writePermission="com.example.mrjab.hermes.chatitems.WRITE" />
 
     <application
         android:allowBackup="true"
@@ -18,16 +28,18 @@
         </activity>
         <activity
             android:name=".Chats"
-
             android:label="Chats" />
         <activity
             android:name=".ChatDetails"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
-        <activity android:name=".SearchForUser"
-            android:label="Search For User"></activity>
-
-        <activity android:name=".AndroidDatabaseManager"
-            android:theme="@style/Theme.AppCompat.Light"/>
+        <activity
+            android:name=".SearchForUser"
+            android:label="Search For User" />
+        <activity
+            android:name=".AndroidDatabaseManager"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity android:name=".SignUp" />
+        <activity android:name=".NewChat"></activity>
     </application>
 
 </manifest>
