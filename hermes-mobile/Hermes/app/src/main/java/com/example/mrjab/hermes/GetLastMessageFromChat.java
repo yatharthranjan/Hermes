@@ -53,15 +53,14 @@ public class GetLastMessageFromChat {
             //Do Your stuff here..
 
             final HttpClient httpclient = new DefaultHttpClient();
-            final HttpPost httppost = new HttpPost("http://hermes.webutu.com/ChatSelect.php");
+            final HttpPost httppost = new HttpPost("http://hermes.webutu.com/SP/ChatAllMessageAll.php");
 
-            final HttpGet httpget = new HttpGet("http://hermes.webutu.com/ChatMessageSelect.php?userID="+String.valueOf(userID[0]));
+            final HttpGet httpget = new HttpGet("http://hermes.webutu.com/SP/ChatAllMessageAll.php?userIDV="+String.valueOf(userID[0]));
             String result;
 
 
             HttpResponse httpresponse = null;
 
-            Looper.prepare();
             ArrayList<NameValuePair> postParameters;
 
             postParameters = new ArrayList<NameValuePair>();

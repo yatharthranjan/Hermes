@@ -24,9 +24,9 @@ public class HermesDbHelper extends SQLiteOpenHelper {
             "`fk_InitUserID_by` bigint(20) DEFAULT NULL," +
             "`fk_InitUserID_with` bigint(20) DEFAULT NULL," +
             "`KeyValue` varchar(255) DEFAULT NULL," +
-            "`CreateDate` datetime DEFAULT NULL," +
-            "FOREIGN KEY (`fk_InitUserID_by`) REFERENCES `tbl_user` (`UserID`)," +
-            "FOREIGN KEY (`fk_InitUserID_with`) REFERENCES `tbl_user` (`UserID`))";
+            "`CreateDate` datetime DEFAULT NULL)";// +
+            //"FOREIGN KEY (`fk_InitUserID_by`) REFERENCES `tbl_user` (`UserID`)," +
+            //"FOREIGN KEY (`fk_InitUserID_with`) REFERENCES `tbl_user` (`UserID`))";
 
 
     private static final String SQL_CREATE_MESSAGE=
@@ -35,9 +35,10 @@ public class HermesDbHelper extends SQLiteOpenHelper {
                     "`fk_SenderUserID` bigint(20) DEFAULT NULL," +
                     "`fk_ChatID` bigint(20) DEFAULT NULL," +
                     "`Content` varchar(8000) DEFAULT ''," +
-                    "`RecieveDateTime` datetime DEFAULT NULL," +
+                    "`RecieveDateTime` datetime DEFAULT NULL,"+
                     "FOREIGN KEY(`fk_ChatID`) REFERENCES `tbl_chat` (`ChatID`)," +
                     "FOREIGN KEY(`fk_SenderUserID`) REFERENCES `tbl_user` (`UserID`))";
+
     private static final String SQL_CREATE_USER=
                     "CREATE TABLE `tbl_user` (`UserID` bigint(20) NOT NULL PRIMARY KEY," +
                     "`Username` varchar(50) NOT NULL," +
@@ -47,7 +48,7 @@ public class HermesDbHelper extends SQLiteOpenHelper {
                     "`Status` INTEGER DEFAULT 0," +
                     "`CreateDate` datetime DEFAULT NULL ," +
                     "`ModifyDate` datetime DEFAULT NULL)";
-    private static final String SQL_DELETE_ENTRIES ="";
+
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Hermes.db";
@@ -84,11 +85,11 @@ public class HermesDbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
+
     public ArrayList<Cursor> getData(String Query){
         //get writable database
         SQLiteDatabase sqlDB = this.getWritableDatabase();
@@ -112,11 +113,8 @@ public class HermesDbHelper extends SQLiteOpenHelper {
 
             alc.set(1,Cursor2);
             if (null != c && c.getCount() > 0) {
-
-
                 alc.set(0,c);
                 c.moveToFirst();
-
                 return alc ;
             }
             return alc;
@@ -136,6 +134,6 @@ public class HermesDbHelper extends SQLiteOpenHelper {
             return alc;
         }
 
-
     }
+
 }

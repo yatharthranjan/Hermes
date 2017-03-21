@@ -3,27 +3,21 @@ package com.example.mrjab.hermes;
 import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
-import android.graphics.Color;
 import android.os.AsyncTask;
-import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
-
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -41,18 +35,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DateFormatSymbols;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import java.util.List;
 
 import github.ankushsachdeva.emojicon.EmojiconEditText;
 import github.ankushsachdeva.emojicon.EmojiconGridView;
 import github.ankushsachdeva.emojicon.EmojiconsPopup;
 import github.ankushsachdeva.emojicon.emoji.Emojicon;
 
-public class ChatDetails extends AppCompatActivity {
+public class NewChat extends AppCompatActivity {
     ListView listView;
     ImageButton buttonSend;
     EditText chatText;
@@ -60,45 +51,34 @@ public class ChatDetails extends AppCompatActivity {
 
     ArrayList<String> sentMessages=new ArrayList<>();
     ArrayList<String> receivedMessages=new ArrayList<>();
-    int sentTimes[];
-    int receivedTimes[];
     ArrayList<Date> sentDates=new ArrayList<>();
     ArrayList<Date> receivedDates=new ArrayList<>();
     Toolbar toolbar;
 
-    int userIDSelf = 1;
+    int userIDSelf = 0;
+    int userIDReceiver = 0;
     int chatID=0;
     private boolean side = false;
-    ArrayList<MessageInfo> myList;
+    ArrayList<MessageInfo> myList = new ArrayList<>();
+    String username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_details);
+        setContentView(R.layout.activity_new_chat);
 
-
-        /*toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(Color.WHITE);
-        setSupportActionBar(toolbar);*/
 
         Intent i = getIntent();
-        String uname = i.getStringExtra("uname");
+        username = i.getStringExtra("uname");
         userIDSelf = i.getIntExtra("userID",0);
-        chatID = i.getIntExtra("chatID",0);
+        userIDReceiver = i.getIntExtra("userIDRec",0);
 
-        myList = (ArrayList<MessageInfo>) i.getSerializableExtra("Messages");
+        Toast.makeText(getApplicationContext(),"username : "+username+",userIDSelf : "+userIDSelf+",userIDReceiver : "+userIDReceiver,Toast.LENGTH_LONG).show();
 
+        //chatID = i.getIntExtra("chatID",0);
+        //myList = (ArrayList<MessageInfo>) i.getSerializableExtra("Messages");
 
-
-        //sentMessages = new String[]{"Hi", "Whats up", "I am just going to chill at home."};
-        //receivedMessages = new String[]{"Hello", "Going to a chelsea game tonight", "What about you?", "Okay great"};
-        sentTimes = new int[]{1, 3, 6};
-        receivedTimes = new int[]{2, 4, 5, 7};
-
-        //sentDates = new Date[]{new Date(2017, 2, 14, 14, 32, 0), new Date(2017, 2, 14, 14, 33, 10), new Date(2017, 2, 14, 14, 35, 0)};
-        //receivedDates = new Date[]{new Date(2017, 2, 14, 14, 32, 10), new Date(2017, 2, 14, 14, 34, 0), new Date(2017, 2, 14, 14, 34, 30), new Date(2017, 2, 14, 14, 36, 0)};
-
-
-        this.setTitle(uname);
+        this.setTitle(username);
 
         setupEmoji();
 
@@ -137,105 +117,8 @@ public class ChatDetails extends AppCompatActivity {
             }
         });
 
-        updateMessageAndDates();
 
     }
-
-
-    public void updateMessageAndDates()
-    {
-
-        chatArrayAdapter=new ChatArrayAdapter(getApplicationContext(), R.layout.right);
-        sentMessages = new ArrayList<>();
-        sentDates = new ArrayList<>();
-
-        receivedDates = new ArrayList<>();
-        receivedMessages = new ArrayList<>();
-        for (MessageInfo m:myList
-                ) {
-            if(m.getUserIDSender() == userIDSelf)
-            {
-                sentMessages.add(m.getContent());
-                sentDates.add(m.getReceived());
-            }
-            else
-            {
-                receivedMessages.add(m.getContent());
-                receivedDates.add(m.getReceived());
-            }
-        }
-        int k = 1;
-        int m = 0;
-        int n = 0;
-        //chatArrayAdapter.add(new ChatMessage(2, sentDates.get(0).getDay() + " " + getMonthForInt(sentDates.get(0).getMonth()-1) + " " + sentDates.get(0).getYear(),null));
-        Date first = myList.get(0).getReceived();
-        if(DateUtils.isToday(first.getTime()))
-        {
-            chatArrayAdapter.add(new ChatMessage(2,"Today",null));
-
-        }
-        else{
-            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            String newDate = df.format(first);
-            chatArrayAdapter.add(new ChatMessage(2, newDate ,null));
-        }
-        while (k <= myList.size()) {
-            if(myList.get(k-1).receivedDate.getDay() == first.getDay() && myList.get(k-1).receivedDate.getMonth() == first.getMonth()
-                    && myList.get(k-1).receivedDate.getYear() == first.getYear()){
-
-            }
-            else
-            {
-                first = myList.get(k-1).getReceived();
-                if(DateUtils.isToday(first.getTime()))
-                {
-                    chatArrayAdapter.add(new ChatMessage(2,"Today",null));
-
-                }
-                else{
-                    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                    String newDate = df.format(first);
-                    chatArrayAdapter.add(new ChatMessage(2, newDate ,null));
-
-                }
-
-            }
-
-            if(n>=receivedDates.size())
-            {
-                chatArrayAdapter.add(new ChatMessage(0, sentMessages.get(m), sentDates.get(m))); // true  for right side
-                m++;
-            }
-            else if(m>=sentDates.size())
-            {
-                chatArrayAdapter.add(new ChatMessage(1, receivedMessages.get(n), receivedDates.get(n))); // false for left side
-                n++;
-            }
-            else {
-                if (sentDates.get(m).compareTo(receivedDates.get(n)) < 0) {
-                    chatArrayAdapter.add(new ChatMessage(0, sentMessages.get(m), sentDates.get(m))); // true  for right side
-                    m++;
-                } else if (sentDates.get(m).compareTo(receivedDates.get(n)) > 0) {
-                    chatArrayAdapter.add(new ChatMessage(1, receivedMessages.get(n), receivedDates.get(n))); // false for left side
-                    n++;
-                }
-            }
-            k++;
-        }
-
-        listView.setAdapter(chatArrayAdapter);
-
-        //to scroll the list view to bottom on data change
-        chatArrayAdapter.registerDataSetObserver(new DataSetObserver() {
-            @Override
-            public void onChanged() {
-                super.onChanged();
-                listView.setSelection(chatArrayAdapter.getCount() - 1);
-            }
-        });
-
-    }
-
 
     public  void setupEmoji(){
 
@@ -347,17 +230,16 @@ public class ChatDetails extends AppCompatActivity {
 
 
     private boolean sendChatMessage() {
-        //chatArrayAdapter.add(new ChatMessage(0, chatText.getText().toString(),new Date()));
-        SendMessage smg = new SendMessage();
-        String [] params={String.valueOf(userIDSelf),String.valueOf(chatID),chatText.getText().toString().replaceAll(" ","%20")};
-        smg.execute(params);
 
+        CreateChat cc =new CreateChat();
+        String [] params={String.valueOf(userIDSelf),String.valueOf(userIDReceiver)};
+        cc.execute(params);
         side = !side;
         return true;
     }
 
 
-    class SendMessage extends AsyncTask<String, Void, String> {
+    public class SendMessage extends AsyncTask<String, Void, String> {
 
         protected String doInBackground( String[] params) {
             // TODO Auto-generated method stub
@@ -368,7 +250,7 @@ public class ChatDetails extends AppCompatActivity {
             final HttpClient httpclient = new DefaultHttpClient();
             final HttpPost httppost = new HttpPost("http://hermes.webutu.com/ChatSelect.php");
 
-            final HttpGet httpget = new HttpGet("http://hermes.webutu.com/SP/MessageSend.php?fk_SenderUserIDV="+String.valueOf(params[0])+"&"+"fk_ChatIDV="+String.valueOf(params[1])+"&"+"ContentV="+"'"+params[2]+"'");
+            final HttpGet httpget = new HttpGet("http://hermes.webutu.com/SP/MessageSend.php?fk_SenderUserIDV="+String.valueOf(params[0])+"&"+"fk_ChatIDV="+String.valueOf(params[1]+"&"+"ContentV="+"'"+params[2]+"'"));
             String result;
 
 
@@ -413,9 +295,9 @@ public class ChatDetails extends AppCompatActivity {
 
             return builder.toString();
         }
+
         @Override
         protected void onPostExecute(String result) {
-
 
             super.onPostExecute(result);
 
@@ -423,20 +305,29 @@ public class ChatDetails extends AppCompatActivity {
             {
                 Toast.makeText(getApplicationContext(),"Message sent :)",Toast.LENGTH_LONG).show();
 
-                MessageInfo msg = new MessageInfo((int)(Math.random()*100), myList.get(0).getChatID(),userIDSelf,chatText.getText().toString(),new Date());
+
+                MessageInfo msg = new MessageInfo((int)(Math.random()*100), chatID , userIDSelf , chatText.getText().toString(),new Date());
                 myList.add(msg);
-                updateMessageAndDates();
                 chatText.setText("");
 
+                Intent in = new Intent(NewChat.this,ChatDetails.class);
+                in.putExtra("userID",userIDSelf);
+                in.putExtra("chatID",chatID);
+                in.putExtra("Messages",myList);
+                in.putExtra("uname",username);
+                startActivity(in);
+                finish();
             }
             else if(result.contains("False"))
             {
                 Toast.makeText(getApplicationContext(),"Message not sent. Try again later.",Toast.LENGTH_LONG).show();
+                finish();
 
             }
             else
             {
                 Toast.makeText(getApplicationContext(),"Connection Error :(",Toast.LENGTH_LONG).show();
+                finish();
 
             }
 
@@ -445,8 +336,131 @@ public class ChatDetails extends AppCompatActivity {
         }
     }
 
+    public class CreateChat extends AsyncTask<String, Void, String> {
 
-    String getMonthForInt(int num) {
+        protected String doInBackground(String[] params) {
+            // TODO Auto-generated method stub
+
+            final StringBuilder builder = new StringBuilder();
+            //Do Your stuff here..
+
+            final HttpClient httpclient = new DefaultHttpClient();
+            final HttpPost httppost = new HttpPost("http://hermes.webutu.com/ChatSelect.php");
+
+            final HttpGet httpget = new HttpGet("http://hermes.webutu.com/SP/ChatCreate.php?fk_InitUserID_byV="+ String.valueOf(params[0]) + "&fk_InitUserID_withV="+ String.valueOf(params[1]));
+            String result;
+
+
+            HttpResponse httpresponse = null;
+
+            ArrayList<NameValuePair> postParameters;
+
+            postParameters = new ArrayList<NameValuePair>();
+            postParameters.add(
+                    new BasicNameValuePair("userID", String.valueOf(params[0])));
+
+            try {
+                httppost.setEntity(new UrlEncodedFormEntity(postParameters));
+                // reset to null before making a new post if it's being reused
+                httpresponse = null;
+                httpresponse = httpclient.execute(httpget);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+            if (httpresponse != null) {
+
+                try {
+
+                    // Get the data in the entity
+                    BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(
+                                    httpresponse.getEntity().getContent(), "UTF-8")
+                    );
+
+
+                    for (String line = null; (line = reader.readLine()) != null; ) {
+                        builder.append(line).append("\n");
+                    }
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return builder.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            //Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
+            int chatIDnew =0 ;
+            //get the chat ID
+            chatID = chatIDnew;
+
+            if(isJSONValid(result))
+            {
+                //Toast.makeText(getApplicationContext(),"Sign In Successful :)",Toast.LENGTH_LONG).show();
+                JSONObject finaljson = null;
+
+                try {
+                    JSONArray jArray = new JSONArray(result);
+                    //JSONTokener tokener = new JSONTokener(builder.toString());
+                    finaljson = jArray.getJSONObject(0);
+
+                    Log.v("JSON OUTPUT: ", finaljson.toString());
+
+                    for (int i = 0; i < jArray.length(); i++) {
+                        try {
+                            JSONObject oneObject = jArray.getJSONObject(i);
+                            // Pulling items from the array
+                            chatID = oneObject.getInt("ID");
+                        } catch (JSONException e) {
+                            // Oops
+                            e.printStackTrace();
+                        }
+                    }
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                String [] params = {String.valueOf(userIDSelf),String.valueOf(chatID),chatText.getText().toString().replaceAll(" ","%20")};
+                new SendMessage().execute(params);
+
+            }
+            else if(result.contains("False")){
+                Toast.makeText(getApplicationContext(),"Sorry. Try Again Later",Toast.LENGTH_LONG).show();
+                finish();
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(),"Connection Error :(",Toast.LENGTH_LONG).show();
+                finish();
+            }
+
+        }
+
+        public boolean isJSONValid(String test) {
+            try {
+                new JSONObject(test);
+            } catch (JSONException ex) {
+                // edited, to include @Arthur's comment
+                // e.g. in case JSONArray is valid as well...
+                try {
+                    new JSONArray(test);
+                } catch (JSONException ex1) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+    }
+
+
+            String getMonthForInt(int num) {
         String month = "wrong";
         DateFormatSymbols dfs = new DateFormatSymbols();
         String[] months = dfs.getMonths();
@@ -456,4 +470,3 @@ public class ChatDetails extends AppCompatActivity {
         return month;
     }
 }
-
