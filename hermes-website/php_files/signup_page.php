@@ -1,7 +1,5 @@
 
-	<?php
-
-	?>
+	
 		<img src="images/signup-icon_1919.png" alt="login_image" id="signup_image"/>
 			<form action="#" method="post">
 				<ul id="signup_form">

@@ -1,40 +1,38 @@
 <?php
-	require ("database_connection.php");
+require( "database_connection.php" );
+$user = $_SESSION[ 'user_id' ];
+$query = "CALL sp_ChatAll_select($user)";
 
-$query="select user_id,name, login,lastseen from users where user_id 
-in(select friend_id from connections where user_id=".$_SESSION['user_id']." )";
+if ( $result = $pdo->query( $query ) ) {
+	$arr = NULL;
+	while ( $row = $result->fetch( PDO::FETCH_ASSOC ) ) {
+		$arr[] = $row;
 
-if($result=$pdo->query($query))
+
+	}
+	if ( count( $arr ) > 0 ) {
+
+
+		for ( $i = 0; $i < count( $arr ); $i++ )
+
 		{
-			$arr=NULL;
-			while($row=$result->fetch(PDO::FETCH_ASSOC))
-				{
-					$arr[]=$row;
-				
+			echo "<li id='" . $arr[ $i ][ 'ChatID' ] . "' title=''><span>FRENDID:" . $arr[ $i ][ 'Name' ] . " </span></li>";
 
-				}
-			if(count($arr)>0)
-			{
-				for($i=0;$i<count($arr);$i++)
-				echo "<li id='".['user_id']."'><span>".$row['name']."</span><span class='activity ".
-					(!empty($row['login'])?"online":"lastseen")."'></span></li>";
-				
-			}
-			else{
-				
-				echo "<li id='empty_list'><span>No friends To chat</span><span></span></li>";
-			}
-				//$jsonstr=json_encode($arr);
-			
-				
-		}
-		else
-		{
-		var_dump($pdo->errorInfo());	
-			
 		}
 
-unset($pdo);
+
+	} else {
+
+		echo "<li id='empty_list'><span>No friends To chat</span><span></span></li>";
+	}
+
+
+} else {
+	var_dump( $pdo->errorInfo() );
+
+}
+//echo $p=hash("Sha256","yatharth");	
+unset( $pdo );
 
 
 

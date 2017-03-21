@@ -1,79 +1,62 @@
 <?php
 
 session_start();
-require("select_query.php");
- $userInfo= $_SESSION['user_id'];
+require( "select_query.php" );
+$userInfo = $_SESSION[ 'user_id' ];
+if ( !empty( $_POST[ 'saveChat' ] ) ) {
 
-if(isset($_POST['friendInfo']))
-{
+	$data = json_decode( $_POST[ 'saveChat' ] );
+	$chatId = $data->chatId;
+	$msg = $data->message;
+	//print_r( $data );
 
-$friendInfo=$_POST['friendInfo'];
-$query="select user_id,friend_id ,msg from chatbox where (user_id=$userInfo and friend_id=$friendInfo) 
-or (user_id=$friendInfo and friend_id=$userInfo) order by messagetime" ;
-	echo select_query($query);
-}
-elseif(!empty($_POST['search_term']))
-{
-	
-$search_term=$_POST['search_term'];
-	
-	$query="select user_id,username from users where user_id<>$userInfo and username like '$search_term%' limit 10";
-	echo select_query($query);
-}
-elseif(!empty($_POST['load_profile']))
-{
-	
-$user_id=$_POST['load_profile'];
-	
-	$query="select * from users where user_id=$user_id";
-	echo select_query($query);
-}
-elseif(!empty($_POST['send_request']))
-{
-	$friend_id=$_POST['send_request'];
- 	$userInfo= $_SESSION['user_id'];
-$query="select id from connections where user_id=$userInfo and friend_id=$friend_id";
-	$arr=select_query($query);
-	if($arr==="empty")
-	{
-			$query="insert into connections(user_id,friend_id,connection) values($userInfo,$friend_id,0)";
-			echo insert_query($query,$friend_id);
+	if ( empty( $chatId ) ) {
+
+		$friendInfo = $data->friendId;
+		$query3 = "CALL sp_Check_Chat($userInfo,$friendInfo)";
+		$data = select_query( $query3 );
+		if($data==="empty")
+		{
+		$query2 = "CALL sp_Chat_Insert($userInfo,$friendInfo)";
+		select_query( $query2 );
+		//$query3 = "select chatID from tbl_chat where fk_InitUserID_by=$userInfo and fk_InitUserID_with=$friendInfo";		
+		$query3 = "CALL sp_Check_Chat($userInfo,$friendInfo)";
+		$data = select_query( $query3 );
+		echo $data;
+		$idDecode = json_decode( $data );
+		$chatId = $idDecode[0]->chatID;
+		}
+		else
+		{
+		echo $data;
+		$idDecode = json_decode( $data );
+		$chatId = $idDecode[ 0 ]->chatID;	
+		}
 	}
-	else
-	{
-				$arr=array("already_requested",$friend_id);
+	
 
-					echo $jsonstr=json_encode($arr);
+	$query = "CALL sp_Message_Insert ($userInfo,$chatId,'".$msg."')";
+	select_query( $query );
 
-	}
+} elseif ( !empty( $_POST[ 'loadChat' ] ) ) {
+
+	$data = json_decode( $_POST[ 'loadChat' ] );
+	$chatId = $data->chatId;
+	$query = "CALL sp_MessageByChat_Select( $chatId)";
+	echo select_query( $query );
 }
-else
-	{
-die("empty");
+
+elseif ( !empty( $_POST[ 'search_term' ] ) ) {
+
+	$search_term = $_POST[ 'search_term' ];
+	$query = "CALL sp_UserSearch_Select('$search_term')";
+	echo select_query( $query );
+}
+
+else {
+	die( "empty" );
 }
 
 
 
-function insert_query($query,$friend_id)
-	{
-		require("database_connection.php");
-
-		if($result=$pdo->exec($query))
-			{
-				
-				$arr=array("sent",$friend_id);
-
-					echo $jsonstr=json_encode($arr);
-
-				
-				
-			}
-			else
-			{
-				var_dump($pdo->errorInfo());	
-			}
-		
-		
-		
-	}
 ?>

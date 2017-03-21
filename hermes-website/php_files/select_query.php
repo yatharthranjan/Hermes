@@ -8,6 +8,7 @@ if($result=$pdo->query($query))
 			while($row=$result->fetch(PDO::FETCH_ASSOC))
 				{
 					array_push($arr,$row);
+					
 				}
 			if(!empty($arr))
 			   {
