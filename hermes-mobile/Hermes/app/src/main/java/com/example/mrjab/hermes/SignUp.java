@@ -27,6 +27,9 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public class SignUp extends AppCompatActivity {
@@ -46,6 +49,11 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
+
+        String regpassword = "/^\\w{6,20}$/";
+        String regusername = "/^[a-z\\sA-Z]{3,20}$/";
+        String regname = "/^[@$#.,*a-zA-z0-9]{8,20}$/";
+        String regemail = "/^[\\w_\\.\\-\\+]+@[\\w-]+(\\.\\w{2,4})$/";
 
         fullName = (EditText) findViewById(R.id.full_name);
         userName = (EditText) findViewById(R.id.username);
@@ -67,7 +75,7 @@ public class SignUp extends AppCompatActivity {
                         parameters[0] = (fullName.getText().toString());
                         parameters[1] = (userName.getText().toString());
                         parameters[2] = (email.getText().toString());
-                        parameters[3] = (password.getText().toString());
+                        parameters[3] = (bin2hex(getHash(password.getText().toString())).toLowerCase());
                         new createNewUser().execute(parameters);
                     }
                     else
@@ -85,6 +93,21 @@ public class SignUp extends AppCompatActivity {
 
     }
 
+    public byte[] getHash(String password) {
+        MessageDigest digest=null;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        digest.reset();
+        return digest.digest(password.getBytes());
+    }
+
+    static String bin2hex(byte[] data) {
+        return String.format("%0" + (data.length*2) + "X", new BigInteger(1, data));
+    }
     @Override
     public void onBackPressed() {
         Intent i=new Intent(this,MainActivity.class);

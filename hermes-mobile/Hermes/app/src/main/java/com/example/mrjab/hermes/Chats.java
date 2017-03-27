@@ -1,5 +1,7 @@
 package com.example.mrjab.hermes;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +13,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -93,6 +96,9 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         setContentView(R.layout.activity_chats);
 
 
@@ -107,12 +113,6 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
         listView= (SwipeMenuListView) findViewById(R.id.listView);
         Intent in =getIntent();
         userID = in.getIntExtra("userID",0);
-        /*ContentValues values = new ContentValues();
-        values.put("ChatID",10);
-        values.put("fk_InitUserID_by", 1);
-        values.put("fk_InitUserID_with",2);
-        values.put("KeyValue",5);
-        values.put("CreateDate",new Date().toString());*/
 
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
@@ -210,29 +210,6 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
             }
         });
 
-        //listView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
-
-
-        // Create the Handler object (on the main thread by default)
-       /* handler = new Handler();
-        runnableCode = new Runnable() {
-            @Override
-            public void run() {
-
-                chatList.renewChats();
-                chatList.asyncChats.delegate = Chats.this;
-                userID =1;
-                String [] userid = {String.valueOf(userID)};
-
-                chatList.asyncChats.execute(userid);
-                // Do something here on the main thread
-                Log.d("Handlers", "Called on main thread");
-                // Repeat this the same runnable code block again another 2 seconds
-
-                handler.postDelayed(this, 2000);
-            }
-        };*/
-       // handler.post(runnableCode);
 
         final EditText search = (EditText) findViewById(R.id.search_chat);
         search.clearFocus();
@@ -277,7 +254,6 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
                     mess1.clear();
                     times1.clear();
                     allcha.clear();
-                    //listView.setAdapter(new CustomAdapter(Chats.this,unames1,profileImages,mess1,times1));
                 }
             }
         });
@@ -410,7 +386,6 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
             SharedPreferences.Editor editor = getSharedPreferences("login", MODE_PRIVATE).edit();
             editor.putInt("userID", 0);
             editor.commit();
-
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
             finish();
@@ -419,8 +394,6 @@ public class Chats extends AppCompatActivity implements AsyncResponse,AsyncRespo
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
 
     @Override

@@ -74,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
         MessageDigest digest=null;
         try {
             digest = MessageDigest.getInstance("SHA-256");
-        } catch (NoSuchAlgorithmException e1) {
+        } catch (NoSuchAlgorithmException e) {
             // TODO Auto-generated catch block
-            e1.printStackTrace();
+            e.printStackTrace();
         }
         digest.reset();
         return digest.digest(password.getBytes());
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     public void chatListPage_click(View e) {
 
         Authenticate authenticate = new Authenticate();
-        String params[] = {username.getText().toString(),password.getText().toString()};
+        String params[] = {username.getText().toString(),bin2hex(getHash(password.getText().toString())).toLowerCase()};
         authenticate.execute(params);
     }
 
